@@ -31,10 +31,10 @@ namespace lms_api.Infrastructure
             );
 
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "admin", PasswordHash = ComputeSha256Hash("Admin123!"), Email = "admin@library.com", Role = "Admin" },
-                new User { Id = 2, Username = "librarian", PasswordHash = ComputeSha256Hash("Librarian123!"), Email = "librarian@library.com", Role = "Librarian" },
-                new User { Id = 3, Username = "reader1", PasswordHash = ComputeSha256Hash("Reader123!"), Email = "reader1@library.com", Role = "Reader" },
-                new User { Id = 4, Username = "reader2", PasswordHash = ComputeSha256Hash("Reader456!"), Email = "reader2@library.com", Role = "Reader" }
+                new User { Id = 1, Username = "admin", PasswordHash = HashPassword("Admin123!"), Email = "admin@library.com", Role = "Admin" },
+                new User { Id = 2, Username = "librarian", PasswordHash = HashPassword("Librarian123!"), Email = "librarian@library.com", Role = "Librarian" },
+                new User { Id = 3, Username = "reader1", PasswordHash = HashPassword("Reader123!"), Email = "reader1@library.com", Role = "Reader" },
+                new User { Id = 4, Username = "reader2", PasswordHash = HashPassword("Reader456!"), Email = "reader2@library.com", Role = "Reader" }
             );
 
             modelBuilder.Entity<Borrow>().HasData(
@@ -48,18 +48,11 @@ namespace lms_api.Infrastructure
             );
         }
 
-        private static string ComputeSha256Hash(string rawData)
+        private string HashPassword(string password)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
+            using var sha256 = SHA256.Create();
+            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(bytes);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace lms_api.Controllers
             if (!isValidUser) return Unauthorized("Invalid username or password.");
 
             var user = await _userRepository.GetUserByUsernameAsync(loginRequest.Username);
-            return Ok(new { Role = user?.Role });
+            return Ok(new { Username  = user?.Username, Role = user?.Role });
         }
     }
 }
