@@ -19,7 +19,7 @@ namespace lms_api.Application.Reservations.Repositories.Implementations
 
         public async Task<IEnumerable<Reservation>> GetAll()
         {
-            return await _dbContext.Reservations.ToListAsync();
+            return await _dbContext.Reservations.Include(x => x.User).Include(x => x.Book).ToListAsync();
         }
 
         public async Task<Reservation> GetReservation(int id)

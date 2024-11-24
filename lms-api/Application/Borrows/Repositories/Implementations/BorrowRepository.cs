@@ -17,7 +17,7 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
     {
         public async Task<IEnumerable<Borrow>> GetAll()
         {
-            return await _dbContext.Borrows.ToListAsync();
+            return await _dbContext.Borrows.Include(x => x.User).Include(x => x.Book).ToListAsync();
         }
 
         public async Task<Borrow> GetBorrow(int id)
