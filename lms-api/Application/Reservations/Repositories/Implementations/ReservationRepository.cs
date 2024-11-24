@@ -24,17 +24,17 @@ namespace lms_api.Application.Reservations.Repositories.Implementations
 
         public async Task<Reservation> GetReservation(int id)
         {
-            return await _dbContext.Reservations.FirstAsync(x => x.Id == id);
+            return await _dbContext.Reservations.Include(x => x.User).Include(x => x.Book).FirstAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Reservation>> GetAllByUserId(int id)
         {
-            return await _dbContext.Reservations.Where(b => b.UserId == id).ToListAsync();
+            return await _dbContext.Reservations.Include(x => x.User).Include(x => x.Book).Where(b => b.UserId == id).ToListAsync();
         }
 
         public async Task<IEnumerable<Reservation>> GetAllByBookId(int id)
         {
-            return await _dbContext.Reservations.Where(b => b.BookId == id).ToListAsync();
+            return await _dbContext.Reservations.Include(x => x.User).Include(x => x.Book).Where(b => b.BookId == id).ToListAsync();
         }
 
         public async Task<Reservation> GetReservationByDetails(int userId, int bookId)
