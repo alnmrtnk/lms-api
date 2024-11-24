@@ -2,6 +2,7 @@
 using lms_api.Application.Books.Models;
 using lms_api.Application.Borrows.Models;
 using lms_api.Application.Borrows.Repositories.Interfaces;
+using lms_api.Application.Reservations.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,14 +21,14 @@ namespace lms_api.Controllers
             return Ok(borrows);
         }
 
-        [HttpGet("/user{id}")]
+        [HttpGet("user/{id}")]
         public async Task<IActionResult> GetAllBorrowsByUserId(int id)
         {
             var borrows = await _borrowRepository.GetAllByUserId(id);
             return Ok(borrows);
         }
 
-        [HttpGet("/book{id}")]
+        [HttpGet("book/{id}")]
         public async Task<IActionResult> GetAllBorrowsByBookId(int id)
         {
             var borrows = await _borrowRepository.GetAllByBookId(id);
@@ -35,18 +36,25 @@ namespace lms_api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBorrow([FromBody] Borrow borrow)
+        public async Task<IActionResult> AddBorrow([FromBody] BorrowDto borrowDto)
         {
-            if (borrow == null)
+            if (borrowDto == null)
             {
-                return BadRequest("Invalid book data.");
+                return BadRequest("Invalid reservation data.");
             }
 
-            await _borrowRepository.AddBorrow(borrow);
-            return CreatedAtAction(nameof(AddBorrow), new { id = borrow.Id }, borrow);
+            var success = await _borrowRepository.AddBorrow(borrowDto);
+
+            if (!success)
+            {
+                return BadRequest("Borrow could not be created due to availability constraints.");
+            }
+
+            var newReservation = await _borrowRepository.GetBorrowByDetails(borrowDto.UserId, borrowDto.BookId);
+            return CreatedAtAction(nameof(AddBorrow), new { id = newReservation.Id }, newReservation);
         }
 
-        [HttpPut("/return{id}")]
+        [HttpPut("return/{id}")]
         public async Task<IActionResult> ReturnBook(int id)
         {
             var borrow = await _borrowRepository.GetBorrow(id);

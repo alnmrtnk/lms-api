@@ -9,7 +9,7 @@ namespace lms_api.Application.Reservations.Models
         public int UserId { get; set; }
         public int BookId { get; set; }
         public DateTime ReservationDate { get; set; } = DateTime.UtcNow;
-        public DateTime ExpirationDate { get; set; } = DateTime.UtcNow.AddHours(48);
+        public DateTime ExpirationDate { get; set; }
         public bool IsActive => ExpirationDate > DateTime.UtcNow;
 
         public virtual User User { get; set; } = null!;

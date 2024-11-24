@@ -18,14 +18,14 @@ namespace lms_api.Controllers
             return Ok(reservations);
         }
 
-        [HttpGet("/user/{id}")]
+        [HttpGet("user/{id}")]
         public async Task<IActionResult> GetAllReservationsByUserId(int id)
         {
             var reservations = await _reservarionRepository.GetAllByUserId(id);
             return Ok(reservations);
         }
 
-        [HttpGet("/book/{id}")]
+        [HttpGet("book/{id}")]
         public async Task<IActionResult> GetAllReservationsByBookId(int id)
         {
             var reservations = await _reservarionRepository.GetAllByBookId(id);
@@ -48,7 +48,15 @@ namespace lms_api.Controllers
             }
 
             var newReservation = await _reservarionRepository.GetReservationByDetails(reservationDto.UserId, reservationDto.BookId);
-            return CreatedAtAction(nameof(GetAllReservations), new { id = newReservation.Id }, newReservation);
+            return CreatedAtAction(nameof(AddReservation), new { id = newReservation.Id }, newReservation);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> CancelReservation(int id)
+        {
+            var success = await _reservarionRepository.CancelReservation(id);
+
+            return Ok(success);
         }
     }
 }

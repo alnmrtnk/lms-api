@@ -29,6 +29,11 @@ namespace lms_api.Application.Users.Repositories.Implementations
             return user != null && user.PasswordHash == HashPassword(password);
         }
 
+        public async Task<IEnumerable<User>> GetReaders()
+        {
+            return await _context.Users.Where(u => u.Role == "Reader").ToListAsync();
+        }
+
         private string HashPassword(string password)
         {
             using var sha256 = SHA256.Create();

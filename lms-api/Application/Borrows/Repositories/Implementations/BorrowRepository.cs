@@ -25,6 +25,11 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
             return await _dbContext.Borrows.FirstAsync(x => x.Id == id);
         }
 
+        public async Task<Borrow> GetBorrowByDetails(int userId, int bookId)
+        {
+            return await _dbContext.Borrows.FirstAsync(r => r.UserId == userId && r.BookId == bookId);
+        }
+
         public async Task<IEnumerable<Borrow>> GetAllByUserId(int id)
         {
             return await _dbContext.Borrows.Where(b => b.UserId == id).ToListAsync();
@@ -35,7 +40,7 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
             return await _dbContext.Borrows.Where(b => b.BookId == id).ToListAsync();
         }
 
-        public async Task<bool> AddBorrow(Borrow borrow)
+        public async Task<bool> AddBorrow(BorrowDto borrow)
         {
             var book = await _bookRepository.GetBook(borrow.BookId);
             if (book.CopiesAvailable == 0)
@@ -43,19 +48,27 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
                 return false;
             }
 
-            var userHasBookReservation = _reservationRepository.GetAllByUserId(borrow.UserId).Result.Any(r => r.BookId == borrow.BookId && r.IsActive);
+     
+            var activeReservation = _reservationRepository.GetAllByUserId(borrow.UserId).Result.FirstOrDefault(r => r.BookId == borrow.BookId && r.IsActive);
 
-            if (!userHasBookReservation)
+
+            if (activeReservation != null)
             {
-                var reservedBookCount = _reservationRepository.GetAllByBookId(borrow.BookId).Result.Where(r => r.IsActive).ToList().Count;
-
-                if (reservedBookCount >= book.CopiesAvailable)
+                var cancelSuccess = await _reservationRepository.CancelReservation(activeReservation.Id);
+                if (!cancelSuccess)
                 {
                     return false;
                 }
             }
 
-            await _dbContext.Borrows.AddAsync(borrow);
+            var newBorrow = new Borrow
+            {
+                UserId = borrow.UserId,
+                BookId = borrow.BookId,
+                BorrowDate = DateTime.UtcNow
+            };
+
+            await _dbContext.Borrows.AddAsync(newBorrow);
             await _dbContext.SaveChangesAsync();
 
             book.CopiesAvailable -= 1;

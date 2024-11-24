@@ -7,5 +7,7 @@ namespace lms_api.Application.Users.Repositories.Interfaces
         Task AddUserAsync(User user);
         Task<User?> GetUserByUsernameAsync(string username);
         Task<bool> ValidateUserCredentialsAsync(string username, string password);
+
+        Task<IEnumerable<User>> GetReaders();
     }
 }

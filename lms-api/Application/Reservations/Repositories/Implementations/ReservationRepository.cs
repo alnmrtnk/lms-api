@@ -50,8 +50,9 @@ namespace lms_api.Application.Reservations.Repositories.Implementations
                 return false;
             }
 
-            var activeReservationsCount = await _dbContext.Reservations
-                .CountAsync(r => r.BookId == reservationDto.BookId && r.IsActive);
+            var activeReservationsCount = _dbContext.Reservations
+                .AsEnumerable()
+                .Count(r => r.BookId == reservationDto.BookId && r.IsActive);
 
             if (activeReservationsCount >= book.CopiesAvailable)
             {
@@ -67,6 +68,28 @@ namespace lms_api.Application.Reservations.Repositories.Implementations
             };
 
             await _dbContext.Reservations.AddAsync(reservation);
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+
+        public async Task<bool> CancelReservation(int id)
+        {
+            var reservation = await _dbContext.Reservations
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if (reservation == null)
+            {
+                return false;
+            }
+
+            if (!reservation.IsActive)
+            {
+                return false;
+            }
+
+            reservation.ExpirationDate = DateTime.UtcNow;
             await _dbContext.SaveChangesAsync();
 
             return true;
