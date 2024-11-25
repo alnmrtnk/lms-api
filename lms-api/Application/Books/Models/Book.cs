@@ -9,5 +9,8 @@
         public required string ISBN { get; set; }
         public int CopiesAvailable { get; set; }
         public required string Genre { get; set; }
+        public required string Language { get; set; }
+        public required string Description { get; set; }
+        public required string ImageURL { get; set; }
     }
 }
