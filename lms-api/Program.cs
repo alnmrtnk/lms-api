@@ -19,7 +19,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<LibraryDbContext>(options =>
-    options.UseNpgsql("Host=localhost;Port=5432;Database=LibraryDB;Username=postgres;Password=1111"));
+    options.UseNpgsql("Host=localhost;Port=5432;Database=LibraryDB;Username=postgres;Password=1111;")
+    .EnableDetailedErrors());
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

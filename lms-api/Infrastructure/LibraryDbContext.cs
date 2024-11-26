@@ -606,12 +606,29 @@ namespace lms_api.Infrastructure
             });
 
 
-modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "admin", PasswordHash = HashPassword("Admin123!"), Email = "admin@library.com", Role = "Admin" },
-                new User { Id = 2, Username = "librarian", PasswordHash = HashPassword("Librarian123!"), Email = "librarian@library.com", Role = "Librarian" },
-                new User { Id = 3, Username = "reader1", PasswordHash = HashPassword("Reader123!"), Email = "reader1@library.com", Role = "Reader" },
-                new User { Id = 4, Username = "reader2", PasswordHash = HashPassword("Reader456!"), Email = "reader2@library.com", Role = "Reader" }
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, Username = "Grace Monte", PasswordHash = HashPassword("Grace123!"), Email = "grace@library.com", Role = "Admin" },
+                new User { Id = 2, Username = "Sam Roy", PasswordHash = HashPassword("Sam123!"), Email = "sam@library.com", Role = "Admin" },
+                new User { Id = 3, Username = "Lily Carter", PasswordHash = HashPassword("Lily123!"), Email = "lily@library.com", Role = "Reader" },
+                new User { Id = 4, Username = "Jack Stone", PasswordHash = HashPassword("Jack123!"), Email = "jack@library.com", Role = "Reader" },
+                new User { Id = 5, Username = "Emily Frost", PasswordHash = HashPassword("Emily123!"), Email = "emily@library.com", Role = "Librarian" },
+                new User { Id = 6, Username = "Noah Blake", PasswordHash = HashPassword("Noah123!"), Email = "noah@library.com", Role = "Librarian" },
+                new User { Id = 7, Username = "Mia Grant", PasswordHash = HashPassword("Mia123!"), Email = "mia@library.com", Role = "Librarian" },
+                new User { Id = 8, Username = "Luke Harris", PasswordHash = HashPassword("Luke123!"), Email = "luke@library.com", Role = "Librarian" },
+                new User { Id = 9, Username = "Ava Reed", PasswordHash = HashPassword("Ava123!"), Email = "ava@library.com", Role = "Reader" },
+                new User { Id = 10, Username = "Ethan Cole", PasswordHash = HashPassword("Ethan123!"), Email = "ethan@library.com", Role = "Reader" },
+                new User { Id = 11, Username = "Chloe James", PasswordHash = HashPassword("Chloe123!"), Email = "chloe@library.com", Role = "Reader" },
+                new User { Id = 12, Username = "Leo Bennett", PasswordHash = HashPassword("Leo123!"), Email = "leo@library.com", Role = "Reader" },
+                new User { Id = 13, Username = "Sophia Lane", PasswordHash = HashPassword("Sophia123!"), Email = "sophia@library.com", Role = "Reader" },
+                new User { Id = 14, Username = "Max Hill", PasswordHash = HashPassword("Max123!"), Email = "max@library.com", Role = "Reader" },
+                new User { Id = 15, Username = "Ella Moore", PasswordHash = HashPassword("Ella123!"), Email = "ella@library.com", Role = "Reader" },
+                new User { Id = 16, Username = "Liam Cross", PasswordHash = HashPassword("Liam123!"), Email = "liam@library.com", Role = "Reader" },
+                new User { Id = 17, Username = "Zoe Clark", PasswordHash = HashPassword("Zoe123!"), Email = "zoe@library.com", Role = "Reader" },
+                new User { Id = 18, Username = "Ruby Hayes", PasswordHash = HashPassword("Ruby123!"), Email = "ruby@library.com", Role = "Reader" },
+                new User { Id = 19, Username = "Oliver Knight", PasswordHash = HashPassword("Oliver123!"), Email = "oliver@library.com", Role = "Reader" },
+                new User { Id = 20, Username = "Ivy Brooks", PasswordHash = HashPassword("Ivy123!"), Email = "ivy@library.com", Role = "Reader" }
             );
+
 
             modelBuilder.Entity<Borrow>().HasData(
                 new Borrow { Id = 1, UserId = 3, BookId = 1, BorrowDate = DateTime.UtcNow.AddDays(-10), ReturnDate = DateTime.UtcNow.AddDays(-2) },
