@@ -631,14 +631,62 @@ namespace lms_api.Infrastructure
 
 
             modelBuilder.Entity<Borrow>().HasData(
-                new Borrow { Id = 1, UserId = 3, BookId = 1, BorrowDate = DateTime.UtcNow.AddDays(-10), ReturnDate = DateTime.UtcNow.AddDays(-2) },
-                new Borrow { Id = 2, UserId = 4, BookId = 3, BorrowDate = DateTime.UtcNow.AddDays(-5) }
+                new Borrow { Id = 1, ReaderId = 3, LibrarianId = 5, BookId = 1, BorrowDate = DateTime.UtcNow.AddDays(-10), ReturnDate = DateTime.UtcNow.AddDays(-2) },
+                new Borrow { Id = 2, ReaderId = 4, LibrarianId = 6, BookId = 3, BorrowDate = DateTime.UtcNow.AddDays(-5) },
+                new Borrow { Id = 3, ReaderId = 9, LibrarianId = 7, BookId = 5, BorrowDate = DateTime.UtcNow.AddDays(-8), ReturnDate = DateTime.UtcNow.AddDays(-1) },
+                new Borrow { Id = 4, ReaderId = 10, LibrarianId = 8, BookId = 6, BorrowDate = DateTime.UtcNow.AddDays(-12), ReturnDate = DateTime.UtcNow.AddDays(-3) },
+                new Borrow { Id = 5, ReaderId = 11, LibrarianId = 5, BookId = 7, BorrowDate = DateTime.UtcNow.AddDays(-15), ReturnDate = DateTime.UtcNow.AddDays(-5) },
+                new Borrow { Id = 6, ReaderId = 12, LibrarianId = 6, BookId = 8, BorrowDate = DateTime.UtcNow.AddDays(-7), ReturnDate = DateTime.UtcNow.AddDays(-1) },
+                new Borrow { Id = 7, ReaderId = 13, LibrarianId = 7, BookId = 9, BorrowDate = DateTime.UtcNow.AddDays(-6) },
+                new Borrow { Id = 8, ReaderId = 14, LibrarianId = 8, BookId = 10, BorrowDate = DateTime.UtcNow.AddDays(-20), ReturnDate = DateTime.UtcNow.AddDays(-10) },
+                new Borrow { Id = 9, ReaderId = 15, LibrarianId = 5, BookId = 11, BorrowDate = DateTime.UtcNow.AddDays(-14), ReturnDate = DateTime.UtcNow.AddDays(-4) },
+                new Borrow { Id = 10, ReaderId = 16, LibrarianId = 6, BookId = 12, BorrowDate = DateTime.UtcNow.AddDays(-18), ReturnDate = DateTime.UtcNow.AddDays(-8) },
+                new Borrow { Id = 11, ReaderId = 17, LibrarianId = 7, BookId = 13, BorrowDate = DateTime.UtcNow.AddDays(-25), ReturnDate = DateTime.UtcNow.AddDays(-15) },
+                new Borrow { Id = 12, ReaderId = 18, LibrarianId = 8, BookId = 14, BorrowDate = DateTime.UtcNow.AddDays(-22), ReturnDate = DateTime.UtcNow.AddDays(-12) },
+                new Borrow { Id = 13, ReaderId = 19, LibrarianId = 5, BookId = 15, BorrowDate = DateTime.UtcNow.AddDays(-30), ReturnDate = DateTime.UtcNow.AddDays(-20) },
+                new Borrow { Id = 14, ReaderId = 9, LibrarianId = 6, BookId = 16, BorrowDate = DateTime.UtcNow.AddDays(-5) },
+                new Borrow { Id = 15, ReaderId = 3, LibrarianId = 7, BookId = 17, BorrowDate = DateTime.UtcNow.AddDays(-9), ReturnDate = DateTime.UtcNow.AddDays(-2) },
+                new Borrow { Id = 16, ReaderId = 10, LibrarianId = 8, BookId = 18, BorrowDate = DateTime.UtcNow.AddDays(-11), ReturnDate = DateTime.UtcNow.AddDays(-3) },
+                new Borrow { Id = 17, ReaderId = 4, LibrarianId = 5, BookId = 19, BorrowDate = DateTime.UtcNow.AddDays(-13), ReturnDate = DateTime.UtcNow.AddDays(-4) },
+                new Borrow { Id = 18, ReaderId = 11, LibrarianId = 6, BookId = 20, BorrowDate = DateTime.UtcNow.AddDays(-10), ReturnDate = DateTime.UtcNow.AddDays(-1) },
+                new Borrow { Id = 19, ReaderId = 12, LibrarianId = 7, BookId = 21, BorrowDate = DateTime.UtcNow.AddDays(-15), ReturnDate = DateTime.UtcNow.AddDays(-5) },
+                new Borrow { Id = 20, ReaderId = 13, LibrarianId = 8, BookId = 22, BorrowDate = DateTime.UtcNow.AddDays(-3) }
             );
+
 
             modelBuilder.Entity<Reservation>().HasData(
                 new Reservation { Id = 1, UserId = 3, BookId = 2, ReservationDate = DateTime.UtcNow.AddDays(-1), ExpirationDate = DateTime.UtcNow.AddHours(24) },
-                new Reservation { Id = 2, UserId = 4, BookId = 4, ReservationDate = DateTime.UtcNow.AddHours(-30), ExpirationDate = DateTime.UtcNow.AddHours(18) }
+                new Reservation { Id = 2, UserId = 4, BookId = 4, ReservationDate = DateTime.UtcNow.AddHours(-30), ExpirationDate = DateTime.UtcNow.AddHours(18) },
+                new Reservation { Id = 3, UserId = 10, BookId = 8, ReservationDate = DateTime.UtcNow.AddHours(-36), ExpirationDate = DateTime.UtcNow.AddHours(12) },
+                new Reservation { Id = 4, UserId = 12, BookId = 9, ReservationDate = DateTime.UtcNow.AddHours(-40), ExpirationDate = DateTime.UtcNow.AddHours(8) },
+                new Reservation { Id = 5, UserId = 13, BookId = 10, ReservationDate = DateTime.UtcNow.AddDays(-1), ExpirationDate = DateTime.UtcNow.AddHours(22) },
+                new Reservation { Id = 6, UserId = 14, BookId = 11, ReservationDate = DateTime.UtcNow.AddHours(-46), ExpirationDate = DateTime.UtcNow.AddHours(2) },
+                new Reservation { Id = 7, UserId = 15, BookId = 12, ReservationDate = DateTime.UtcNow.AddDays(-2), ExpirationDate = DateTime.UtcNow.AddHours(-4) },
+                new Reservation { Id = 8, UserId = 16, BookId = 13, ReservationDate = DateTime.UtcNow.AddHours(-38), ExpirationDate = DateTime.UtcNow.AddHours(8) },
+                new Reservation { Id = 9, UserId = 17, BookId = 14, ReservationDate = DateTime.UtcNow.AddDays(-1), ExpirationDate = DateTime.UtcNow.AddHours(23) },
+                new Reservation { Id = 10, UserId = 18, BookId = 15, ReservationDate = DateTime.UtcNow.AddDays(-2), ExpirationDate = DateTime.UtcNow.AddHours(-6) },
+                new Reservation { Id = 11, UserId = 19, BookId = 16, ReservationDate = DateTime.UtcNow.AddDays(-1), ExpirationDate = DateTime.UtcNow.AddHours(20) },
+                new Reservation { Id = 12, UserId = 9, BookId = 17, ReservationDate = DateTime.UtcNow.AddHours(-42), ExpirationDate = DateTime.UtcNow.AddHours(6) },
+                new Reservation { Id = 13, UserId = 3, BookId = 18, ReservationDate = DateTime.UtcNow.AddDays(-2), ExpirationDate = DateTime.UtcNow.AddHours(4) },
+                new Reservation { Id = 14, UserId = 4, BookId = 19, ReservationDate = DateTime.UtcNow.AddHours(-48), ExpirationDate = DateTime.UtcNow.AddHours(0) },
+                new Reservation { Id = 15, UserId = 10, BookId = 20, ReservationDate = DateTime.UtcNow.AddHours(-35), ExpirationDate = DateTime.UtcNow.AddHours(13) },
+                new Reservation { Id = 16, UserId = 11, BookId = 21, ReservationDate = DateTime.UtcNow.AddDays(-1), ExpirationDate = DateTime.UtcNow.AddHours(24) },
+                new Reservation { Id = 17, UserId = 12, BookId = 22, ReservationDate = DateTime.UtcNow.AddHours(-30), ExpirationDate = DateTime.UtcNow.AddHours(18) },
+                new Reservation { Id = 18, UserId = 13, BookId = 23, ReservationDate = DateTime.UtcNow.AddHours(-32), ExpirationDate = DateTime.UtcNow.AddHours(16) },
+                new Reservation { Id = 19, UserId = 14, BookId = 24, ReservationDate = DateTime.UtcNow.AddHours(-40), ExpirationDate = DateTime.UtcNow.AddHours(8) },
+                new Reservation { Id = 20, UserId = 15, BookId = 25, ReservationDate = DateTime.UtcNow.AddDays(-1), ExpirationDate = DateTime.UtcNow.AddHours(23) },
+                new Reservation { Id = 21, UserId = 16, BookId = 1, ReservationDate = DateTime.UtcNow.AddDays(-1), ExpirationDate = DateTime.UtcNow.AddHours(21) },
+                new Reservation { Id = 22, UserId = 17, BookId = 3, ReservationDate = DateTime.UtcNow.AddHours(-47), ExpirationDate = DateTime.UtcNow.AddHours(1) },
+                new Reservation { Id = 23, UserId = 18, BookId = 5, ReservationDate = DateTime.UtcNow.AddHours(-39), ExpirationDate = DateTime.UtcNow.AddHours(9) },
+                new Reservation { Id = 24, UserId = 19, BookId = 7, ReservationDate = DateTime.UtcNow.AddDays(-1), ExpirationDate = DateTime.UtcNow.AddHours(22) },
+                new Reservation { Id = 25, UserId = 9, BookId = 9, ReservationDate = DateTime.UtcNow.AddHours(-38), ExpirationDate = DateTime.UtcNow.AddHours(10) },
+                new Reservation { Id = 26, UserId = 3, BookId = 11, ReservationDate = DateTime.UtcNow.AddDays(-1), ExpirationDate = DateTime.UtcNow.AddHours(23) },
+                new Reservation { Id = 27, UserId = 4, BookId = 13, ReservationDate = DateTime.UtcNow.AddHours(-45), ExpirationDate = DateTime.UtcNow.AddHours(3) },
+                new Reservation { Id = 28, UserId = 10, BookId = 15, ReservationDate = DateTime.UtcNow.AddHours(-37), ExpirationDate = DateTime.UtcNow.AddHours(11) },
+                new Reservation { Id = 29, UserId = 11, BookId = 17, ReservationDate = DateTime.UtcNow.AddDays(-2), ExpirationDate = DateTime.UtcNow.AddHours(4) },
+                new Reservation { Id = 30, UserId = 12, BookId = 19, ReservationDate = DateTime.UtcNow.AddHours(-43), ExpirationDate = DateTime.UtcNow.AddHours(5) }
             );
+
         }
 
         private string HashPassword(string password)

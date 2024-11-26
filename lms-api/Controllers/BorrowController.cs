@@ -50,7 +50,7 @@ namespace lms_api.Controllers
                 return BadRequest("Borrow could not be created due to availability constraints.");
             }
 
-            var newReservation = await _borrowRepository.GetBorrowByDetails(borrowDto.UserId, borrowDto.BookId);
+            var newReservation = await _borrowRepository.GetBorrowByDetails(borrowDto.ReaderId, borrowDto.BookId);
             return CreatedAtAction(nameof(AddBorrow), new { id = newReservation.Id }, newReservation);
         }
 

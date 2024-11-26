@@ -17,27 +17,27 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
     {
         public async Task<IEnumerable<Borrow>> GetAll()
         {
-            return await _dbContext.Borrows.Include(x => x.User).Include(x => x.Book).ToListAsync();
+            return await _dbContext.Borrows.Include(x => x.Reader).Include(x => x.Librarian).Include(x => x.Book).ToListAsync();
         }
 
         public async Task<Borrow> GetBorrow(int id)
         {
-            return await _dbContext.Borrows.Include(x => x.User).Include(x => x.Book).FirstAsync(x => x.Id == id);
+            return await _dbContext.Borrows.Include(x => x.Reader).Include(x => x.Librarian).Include(x => x.Book).FirstAsync(x => x.Id == id);
         }
 
-        public async Task<Borrow> GetBorrowByDetails(int userId, int bookId)
+        public async Task<Borrow> GetBorrowByDetails(int readerId, int bookId)
         {
-            return await _dbContext.Borrows.Include(x => x.User).Include(x => x.Book).FirstAsync(r => r.UserId == userId && r.BookId == bookId);
+            return await _dbContext.Borrows.Include(x => x.Reader).Include(x => x.Librarian).Include(x => x.Book).FirstAsync(r => r.ReaderId == readerId && r.BookId == bookId);
         }
 
         public async Task<IEnumerable<Borrow>> GetAllByUserId(int id)
         {
-            return await _dbContext.Borrows.Include(x => x.User).Include(x => x.Book).Where(b => b.UserId == id).ToListAsync();
+            return await _dbContext.Borrows.Include(x => x.Reader).Include(x => x.Librarian).Include(x => x.Book).Where(b => b.ReaderId == id).ToListAsync();
         }
 
         public async Task<IEnumerable<Borrow>> GetAllByBookId(int id)
         {
-            return await _dbContext.Borrows.Include(x => x.User).Include(x => x.Book).Where(b => b.BookId == id).ToListAsync();
+            return await _dbContext.Borrows.Include(x => x.Reader).Include(x => x.Librarian).Include(x => x.Book).Where(b => b.BookId == id).ToListAsync();
         }
 
         public async Task<bool> AddBorrow(BorrowDto borrow)
@@ -49,7 +49,7 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
             }
 
      
-            var activeReservation = _reservationRepository.GetAllByUserId(borrow.UserId).Result.FirstOrDefault(r => r.BookId == borrow.BookId && r.IsActive);
+            var activeReservation = _reservationRepository.GetAllByUserId(borrow.ReaderId).Result.FirstOrDefault(r => r.BookId == borrow.BookId && r.IsActive);
 
 
             if (activeReservation != null)
@@ -63,8 +63,9 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
 
             var newBorrow = new Borrow
             {
-                UserId = borrow.UserId,
+                ReaderId = borrow.ReaderId,
                 BookId = borrow.BookId,
+                LibrarianId = borrow.LibrarianId,
                 BorrowDate = DateTime.UtcNow
             };
 
