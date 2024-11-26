@@ -12,7 +12,7 @@ using lms_api.Infrastructure;
 namespace lms_api.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20241126162858_Update_Users_InitialData")]
+    [Migration("20241126164348_Update_Users_InitialData")]
     partial class Update_Users_InitialData
     {
         /// <inheritdoc />
@@ -432,15 +432,15 @@ namespace lms_api.Migrations
                         {
                             Id = 1,
                             BookId = 1,
-                            BorrowDate = new DateTime(2024, 11, 16, 16, 28, 58, 682, DateTimeKind.Utc).AddTicks(9012),
-                            ReturnDate = new DateTime(2024, 11, 24, 16, 28, 58, 682, DateTimeKind.Utc).AddTicks(9020),
+                            BorrowDate = new DateTime(2024, 11, 16, 16, 43, 48, 212, DateTimeKind.Utc).AddTicks(4872),
+                            ReturnDate = new DateTime(2024, 11, 24, 16, 43, 48, 212, DateTimeKind.Utc).AddTicks(4879),
                             UserId = 3
                         },
                         new
                         {
                             Id = 2,
                             BookId = 3,
-                            BorrowDate = new DateTime(2024, 11, 21, 16, 28, 58, 682, DateTimeKind.Utc).AddTicks(9024),
+                            BorrowDate = new DateTime(2024, 11, 21, 16, 43, 48, 212, DateTimeKind.Utc).AddTicks(4885),
                             UserId = 4
                         });
                 });
@@ -478,16 +478,16 @@ namespace lms_api.Migrations
                         {
                             Id = 1,
                             BookId = 2,
-                            ExpirationDate = new DateTime(2024, 11, 27, 16, 28, 58, 682, DateTimeKind.Utc).AddTicks(9042),
-                            ReservationDate = new DateTime(2024, 11, 25, 16, 28, 58, 682, DateTimeKind.Utc).AddTicks(9041),
+                            ExpirationDate = new DateTime(2024, 11, 27, 16, 43, 48, 212, DateTimeKind.Utc).AddTicks(4903),
+                            ReservationDate = new DateTime(2024, 11, 25, 16, 43, 48, 212, DateTimeKind.Utc).AddTicks(4902),
                             UserId = 3
                         },
                         new
                         {
                             Id = 2,
                             BookId = 4,
-                            ExpirationDate = new DateTime(2024, 11, 27, 10, 28, 58, 682, DateTimeKind.Utc).AddTicks(9044),
-                            ReservationDate = new DateTime(2024, 11, 25, 10, 28, 58, 682, DateTimeKind.Utc).AddTicks(9043),
+                            ExpirationDate = new DateTime(2024, 11, 27, 10, 43, 48, 212, DateTimeKind.Utc).AddTicks(4907),
+                            ReservationDate = new DateTime(2024, 11, 25, 10, 43, 48, 212, DateTimeKind.Utc).AddTicks(4906),
                             UserId = 4
                         });
                 });

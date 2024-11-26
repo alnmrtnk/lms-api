@@ -18,14 +18,14 @@ namespace lms_api.Application.Users.Repositories.Implementations
             await _context.SaveChangesAsync();
         }
 
-        public async Task<User?> GetUserByUsernameAsync(string username)
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
-            return await _context.Users.FirstAsync(u => u.Username == username);
+            return await _context.Users.FirstAsync(u => u.Email == email);
         }
 
-        public async Task<bool> ValidateUserCredentialsAsync(string username, string password)
+        public async Task<bool> ValidateUserCredentialsAsync(string email, string password)
         {
-            var user = await GetUserByUsernameAsync(username);
+            var user = await GetUserByEmailAsync(email);
             return user != null && user.PasswordHash == HashPassword(password);
         }
 

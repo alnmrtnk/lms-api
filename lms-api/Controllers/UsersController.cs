@@ -25,10 +25,10 @@ namespace lms_api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
-            var isValidUser = await _userRepository.ValidateUserCredentialsAsync(loginRequest.Username, loginRequest.Password);
-            if (!isValidUser) return Unauthorized("Invalid username or password.");
+            var isValidUser = await _userRepository.ValidateUserCredentialsAsync(loginRequest.Email, loginRequest.Password);
+            if (!isValidUser) return Unauthorized("Invalid email or password.");
 
-            var user = await _userRepository.GetUserByUsernameAsync(loginRequest.Username);
+            var user = await _userRepository.GetUserByEmailAsync(loginRequest.Email);
             return Ok(new { Username  = user?.Username, userId = user?.Id, Role = user?.Role });
         }
 
