@@ -25,16 +25,30 @@ namespace lms_api.Application.Books.Repositories.Implementations
             return await _dbContext.Books.FirstAsync(x => x.Id == id);
         }
 
-        public async Task AddBook(Book book)
+        public async Task<Book> AddBook(Book book)
         {
             await _dbContext.Books.AddAsync(book);
             await _dbContext.SaveChangesAsync();
+
+            return book;
         }
 
-        public async Task UpdateBook(Book book)
+        public async Task<Book> UpdateBook(Book book)
         {
-            _dbContext.Books.Update(book);
-            await _dbContext.SaveChangesAsync();
+            var trackedEntity = await _dbContext.Books.FindAsync(book.Id);
+            if (trackedEntity != null)
+            {
+                _dbContext.Entry(trackedEntity).CurrentValues.SetValues(book);
+                await _dbContext.SaveChangesAsync();
+
+                return trackedEntity;
+            }
+            else
+            {
+                _dbContext.Books.Update(book);
+                await _dbContext.SaveChangesAsync();
+                return book;
+            }
         }
 
         public async Task DeleteBook(int id)

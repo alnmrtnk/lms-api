@@ -10,9 +10,9 @@ namespace lms_api.Application.Books.Repositories.Interfaces
 
         Task<Book> GetBook(int id);
 
-        Task AddBook(Book book);
+        Task<Book> AddBook(Book book);
 
-        Task UpdateBook(Book book);
+        Task<Book> UpdateBook(Book book);
 
         Task DeleteBook(int id);
     }

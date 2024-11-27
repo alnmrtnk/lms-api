@@ -43,8 +43,8 @@ namespace lms_api.Controllers
                 return BadRequest("Invalid book data.");
             }
 
-            await _bookRepository.AddBook(book);
-            return CreatedAtAction(nameof(AddBook), new { id = book.Id }, book);
+            var addedBook = await _bookRepository.AddBook(book);
+            return CreatedAtAction(nameof(AddBook), new { id = addedBook.Id }, addedBook);
         }
 
         [HttpPut("{id}")]
@@ -61,8 +61,8 @@ namespace lms_api.Controllers
                 return NotFound();
             }
 
-            await _bookRepository.UpdateBook(book);
-            return NoContent();
+            var updatedBook = await _bookRepository.UpdateBook(book);
+            return CreatedAtAction(nameof(UpdateBook), new { id = updatedBook.Id }, updatedBook);
         }
 
         [HttpDelete("{id}")]
