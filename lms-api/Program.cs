@@ -2,6 +2,8 @@ using lms_api.Application.Books.Repositories.Implementations;
 using lms_api.Application.Books.Repositories.Interfaces;
 using lms_api.Application.Borrows.Repositories.Implementations;
 using lms_api.Application.Borrows.Repositories.Interfaces;
+using lms_api.Application.Reports.Repositories.Implementations;
+using lms_api.Application.Reports.Repositories.Interfaces;
 using lms_api.Application.Reservations.Repositories.Implementations;
 using lms_api.Application.Reservations.Repositories.Interfaces;
 using lms_api.Application.Users.Repositories.Implementations;
@@ -26,6 +28,7 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
 
 builder.Services.AddCors(options =>
 {
