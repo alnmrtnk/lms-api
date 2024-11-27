@@ -14,7 +14,7 @@ namespace lms_api.Application.Borrows.Repositories.Interfaces
 
         Task<IEnumerable<Borrow>> GetAllByBookId(int id);
 
-        Task<bool> AddBorrow(BorrowDto borrow);
+        Task<int?> AddBorrow(BorrowDto borrow);
 
         Task ReturnBook(Borrow borrow);
     }

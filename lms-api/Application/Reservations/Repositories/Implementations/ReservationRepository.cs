@@ -42,12 +42,12 @@ namespace lms_api.Application.Reservations.Repositories.Implementations
             return await _dbContext.Reservations.FirstAsync(r => r.UserId == userId && r.BookId == bookId);
         }
 
-        public async Task<bool> AddReservation(ReservationDto reservationDto)
+        public async Task<int?> AddReservation(ReservationDto reservationDto)
         {
             var book = await _dbContext.Books.FindAsync(reservationDto.BookId);
             if (book == null || book.CopiesAvailable <= 0)
             {
-                return false;
+                return null;
             }
 
             var activeReservationsCount = _dbContext.Reservations
@@ -56,7 +56,7 @@ namespace lms_api.Application.Reservations.Repositories.Implementations
 
             if (activeReservationsCount >= book.CopiesAvailable)
             {
-                return false;
+                return null;
             }
 
             var reservation = new Reservation
@@ -70,7 +70,7 @@ namespace lms_api.Application.Reservations.Repositories.Implementations
             await _dbContext.Reservations.AddAsync(reservation);
             await _dbContext.SaveChangesAsync();
 
-            return true;
+            return reservation.Id;
         }
 
 
@@ -84,15 +84,10 @@ namespace lms_api.Application.Reservations.Repositories.Implementations
                 return false;
             }
 
-            if (!reservation.IsActive)
-            {
-                return false;
-            }
-
             reservation.ExpirationDate = DateTime.UtcNow;
-            await _dbContext.SaveChangesAsync();
 
-            return true;
+            var result = await _dbContext.SaveChangesAsync();
+            return result > 0;
         }
     }
 }

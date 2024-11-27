@@ -37,17 +37,17 @@ namespace lms_api.Controllers
         {
             if (reservationDto == null)
             {
-                return BadRequest("Invalid reservation data.");
+                return BadRequest(new { message = "Invalid reservation data." });
             }
 
-            var success = await _reservarionRepository.AddReservation(reservationDto);
+            var reservationId = await _reservarionRepository.AddReservation(reservationDto);
 
-            if (!success)
+            if (reservationId == null)
             {
-                return BadRequest("Reservation could not be created due to availability constraints.");
+                return BadRequest(new { message = "Reservation could not be created due to availability constraints." });
             }
 
-            var newReservation = await _reservarionRepository.GetReservationByDetails(reservationDto.UserId, reservationDto.BookId);
+            var newReservation = await _reservarionRepository.GetReservation((int)reservationId);
             return CreatedAtAction(nameof(AddReservation), new { id = newReservation.Id }, newReservation);
         }
 

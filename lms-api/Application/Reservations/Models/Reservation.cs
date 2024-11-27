@@ -10,7 +10,7 @@ namespace lms_api.Application.Reservations.Models
         public int BookId { get; set; }
         public DateTime ReservationDate { get; set; } = DateTime.UtcNow;
         public DateTime ExpirationDate { get; set; }
-        public bool IsActive => ExpirationDate > DateTime.UtcNow;
+        public bool IsActive => ExpirationDate >= DateTime.UtcNow;
 
         public virtual User User { get; set; } = null!;
         public virtual Book Book { get; set; } = null!;

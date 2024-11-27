@@ -15,7 +15,7 @@ namespace lms_api.Application.Reservations.Repositories.Interfaces
 
         Task<Reservation> GetReservationByDetails(int userId, int bookId);
 
-        Task<bool> AddReservation(ReservationDto reservation);
+        Task<int?> AddReservation(ReservationDto reservation);
 
         Task<bool> CancelReservation(int id);
     }

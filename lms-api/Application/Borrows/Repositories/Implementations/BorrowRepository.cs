@@ -40,12 +40,12 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
             return await _dbContext.Borrows.Include(x => x.Reader).Include(x => x.Librarian).Include(x => x.Book).Where(b => b.BookId == id).ToListAsync();
         }
 
-        public async Task<bool> AddBorrow(BorrowDto borrow)
+        public async Task<int?> AddBorrow(BorrowDto borrow)
         {
             var book = await _bookRepository.GetBook(borrow.BookId);
             if (book.CopiesAvailable == 0)
             {
-                return false;
+                return null;
             }
 
      
@@ -57,7 +57,7 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
                 var cancelSuccess = await _reservationRepository.CancelReservation(activeReservation.Id);
                 if (!cancelSuccess)
                 {
-                    return false;
+                    return null;
                 }
             }
 
@@ -75,7 +75,7 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
             book.CopiesAvailable -= 1;
             await _bookRepository.UpdateBook(book);
 
-            return true;
+            return newBorrow.Id;
         }
 
         public async Task ReturnBook(Borrow borrow)

@@ -43,15 +43,15 @@ namespace lms_api.Controllers
                 return BadRequest("Invalid reservation data.");
             }
 
-            var success = await _borrowRepository.AddBorrow(borrowDto);
+            var borrowId = await _borrowRepository.AddBorrow(borrowDto);
 
-            if (!success)
+            if (borrowId == null)
             {
                 return BadRequest("Borrow could not be created due to availability constraints.");
             }
 
-            var newReservation = await _borrowRepository.GetBorrowByDetails(borrowDto.ReaderId, borrowDto.BookId);
-            return CreatedAtAction(nameof(AddBorrow), new { id = newReservation.Id }, newReservation);
+            var newBorrow = await _borrowRepository.GetBorrow((int)borrowId);
+            return CreatedAtAction(nameof(AddBorrow), new { id = newBorrow.Id }, newBorrow);
         }
 
         [HttpPut("return/{id}")]

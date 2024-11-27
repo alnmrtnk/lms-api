@@ -54,19 +54,19 @@ namespace lms_api.Infrastructure
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Book>().HasData(
-    new Book
-    {
-        Id = 1,
-        Title = "The Great Gatsby",
-        Author = "F. Scott Fitzgerald",
-        PublishedDate = new DateTime(1925, 4, 10),
-        ISBN = " 9781645173519",
-        CopiesAvailable = 5,
-        Genre = GenreConstants.Genres[0],
-        Language = "English",
-        Description = @"The Great Gatsby by F. Scott Fitzgerald, set in the 1920s Jazz Age, explores themes of wealth, ambition, love, and the American Dream. Narrated by Nick Carraway, it tells the story of his enigmatic neighbor, Jay Gatsby, who throws lavish parties in pursuit of his lost love, Daisy Buchanan. Daisy, now married to the unfaithful Tom Buchanan, becomes the center of Gatsby's dream to reclaim the past. As Nick witnesses the collision of love, greed, and deceit, the novel reveals the moral decay behind the glitz of the wealthy elite, culminating in tragedy.Fitzgerald's timeless prose captures the illusion and disillusionment of chasing the American Dream.", 
-        ImageURL = "https://m.media-amazon.com/images/I/81QuEGw8VPL.jpg"
-    },
+            new Book
+            {
+                Id = 1,
+                Title = "The Great Gatsby",
+                Author = "F. Scott Fitzgerald",
+                PublishedDate = new DateTime(1925, 4, 10),
+                ISBN = " 9781645173519",
+                CopiesAvailable = 5,
+                Genre = GenreConstants.Genres[0],
+                Language = "English",
+                Description = @"The Great Gatsby by F. Scott Fitzgerald, set in the 1920s Jazz Age, explores themes of wealth, ambition, love, and the American Dream. Narrated by Nick Carraway, it tells the story of his enigmatic neighbor, Jay Gatsby, who throws lavish parties in pursuit of his lost love, Daisy Buchanan. Daisy, now married to the unfaithful Tom Buchanan, becomes the center of Gatsby's dream to reclaim the past. As Nick witnesses the collision of love, greed, and deceit, the novel reveals the moral decay behind the glitz of the wealthy elite, culminating in tragedy.Fitzgerald's timeless prose captures the illusion and disillusionment of chasing the American Dream.", 
+                ImageURL = "https://m.media-amazon.com/images/I/81QuEGw8VPL.jpg"
+            },
             new Book
             {
                 Id = 2,
