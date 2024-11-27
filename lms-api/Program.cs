@@ -1,7 +1,7 @@
 using lms_api.Application.Books.Repositories.Implementations;
 using lms_api.Application.Books.Repositories.Interfaces;
-using lms_api.Application.Borrows.Repositories.Implementations;
-using lms_api.Application.Borrows.Repositories.Interfaces;
+using lms_api.Application.Borrows.Implementations;
+using lms_api.Application.Borrows.Interfaces;
 using lms_api.Application.Reports.Repositories.Implementations;
 using lms_api.Application.Reports.Repositories.Interfaces;
 using lms_api.Application.Reservations.Repositories.Implementations;

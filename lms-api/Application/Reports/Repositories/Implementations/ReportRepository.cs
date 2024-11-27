@@ -1,5 +1,4 @@
 ﻿using lms_api.Application.Books.Repositories.Interfaces;
-using lms_api.Application.Borrows.Repositories.Interfaces;
 using lms_api.Application.Reports.Models;
 using lms_api.Application.Reports.Repositories.Interfaces;
 using lms_api.Application.Reservations.Repositories.Interfaces;

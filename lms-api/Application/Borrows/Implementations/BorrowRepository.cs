@@ -1,13 +1,15 @@
 ﻿using lms_api.Application.Books.Repositories.Interfaces;
+using lms_api.Application.Borrows.Contexts;
+using lms_api.Application.Borrows.Interfaces;
 using lms_api.Application.Borrows.Models;
-using lms_api.Application.Borrows.Repositories.Interfaces;
+using lms_api.Application.Borrows.Strategies;
 using lms_api.Application.Reservations.Models;
 using lms_api.Application.Reservations.Repositories.Interfaces;
 using lms_api.Infrastructure;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
-namespace lms_api.Application.Borrows.Repositories.Implementations
+namespace lms_api.Application.Borrows.Implementations
 {
     public class BorrowRepository(
         LibraryDbContext _dbContext,
@@ -40,42 +42,21 @@ namespace lms_api.Application.Borrows.Repositories.Implementations
             return await _dbContext.Borrows.Include(x => x.Reader).Include(x => x.Librarian).Include(x => x.Book).Where(b => b.BookId == id).ToListAsync();
         }
 
-        public async Task<int?> AddBorrow(BorrowDto borrow)
+
+        public async Task<int?> AddBorrow(BorrowDto borrowDto)
         {
-            var book = await _bookRepository.GetBook(borrow.BookId);
-            if (book.CopiesAvailable == 0)
+            var borrowContext = new BorrowContext();
+
+            if ((bool)borrowDto.IsPriority)
             {
-                return null;
+                borrowContext.SetStrategy(new PriorityBorrowStrategy());
+            }
+            else
+            {
+                borrowContext.SetStrategy(new StandardBorrowStrategy());
             }
 
-     
-            var activeReservation = _reservationRepository.GetAllByUserId(borrow.ReaderId).Result.FirstOrDefault(r => r.BookId == borrow.BookId && r.IsActive);
-
-
-            if (activeReservation != null)
-            {
-                var cancelSuccess = await _reservationRepository.CancelReservation(activeReservation.Id);
-                if (!cancelSuccess)
-                {
-                    return null;
-                }
-            }
-
-            var newBorrow = new Borrow
-            {
-                ReaderId = borrow.ReaderId,
-                BookId = borrow.BookId,
-                LibrarianId = borrow.LibrarianId,
-                BorrowDate = DateTime.UtcNow
-            };
-
-            await _dbContext.Borrows.AddAsync(newBorrow);
-            await _dbContext.SaveChangesAsync();
-
-            book.CopiesAvailable -= 1;
-            await _bookRepository.UpdateBook(book);
-
-            return newBorrow.Id;
+            return await borrowContext.ExecuteBorrowAsync(borrowDto, _dbContext, _reservationRepository, _bookRepository);
         }
 
         public async Task ReturnBook(Borrow borrow)

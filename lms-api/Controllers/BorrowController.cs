@@ -1,7 +1,7 @@
 ﻿
 using lms_api.Application.Books.Models;
+using lms_api.Application.Borrows.Interfaces;
 using lms_api.Application.Borrows.Models;
-using lms_api.Application.Borrows.Repositories.Interfaces;
 using lms_api.Application.Reservations.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

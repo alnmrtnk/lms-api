@@ -1,6 +1,6 @@
 ﻿using lms_api.Application.Borrows.Models;
 
-namespace lms_api.Application.Borrows.Repositories.Interfaces
+namespace lms_api.Application.Borrows.Interfaces
 {
     public interface IBorrowRepository
     {
